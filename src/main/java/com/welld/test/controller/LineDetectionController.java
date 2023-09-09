@@ -1,5 +1,6 @@
 package com.welld.test.controller;
 
+import com.welld.test.command.LineDetectionCommand;
 import com.welld.test.model.Point;
 import com.welld.test.service.LineDetectionService;
 import com.welld.test.util.CustomResponse;
@@ -29,12 +30,26 @@ public class LineDetectionController {
 
     private final List<Point> allPoints = new ArrayList<>();
 
+    private final LineDetectionCommand lineDetectionCommand;
+
+    @Autowired
+    public LineDetectionController(LineDetectionCommand lineDetectionCommand) {
+        this.lineDetectionCommand = lineDetectionCommand;
+    }
+
 
     /**
      *Aggiunge un punto nello spazio
      */
     @PostMapping("/point")
-    public ResponseEntity<List<Point>> addPoint (@RequestBody Point point){
+    public ResponseEntity<?> addPoint (@RequestBody Point point){
+        for (Point existingPoint : allPoints) {
+            if (existingPoint.getX() == point.getX() && existingPoint.getY() == point.getY()) {
+                String errorMessage = "Il punto è già presente nello spazio";
+                CustomResponse errorResponse = new CustomResponse(errorMessage);
+                return ResponseEntity.badRequest().body(errorResponse);
+            }
+        }
         allPoints.add(point);
         return new ResponseEntity<>(allPoints, HttpStatus.OK);
     }
@@ -57,7 +72,14 @@ public class LineDetectionController {
             CustomResponse errorResponse = new CustomResponse(errorMessage);
             return ResponseEntity.badRequest().body(errorResponse);
         }
-        List<List<Point>> lines = lineDetectionService.detectLines(allPoints, n);
+
+        List<List<Point>> lines = lineDetectionCommand.detectLines(allPoints, n);
+        if(lines.size()==0){
+            String errorMessage = "Non è stata trovata nessuna retta, prova ad aggiungere altri punti o a diminuire il valore di n";
+            CustomResponse errorResponse = new CustomResponse(errorMessage);
+            return ResponseEntity.badRequest().body(errorResponse);
+
+        }
         return ResponseEntity.ok(lines);
     }
 

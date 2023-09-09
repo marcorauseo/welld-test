@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "22e5d1a3-e48f-4cb1-baed-87e4f56ac257",
+		"name": "welld-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6904106"
+	},
+	"item": [
+		{
+			"name": "addPoint",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"x\": 5.0,\r\n    \"y\": 10.0\r\n}\r\n"
+				},
+				"url": "http://localhost:8080/point"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllPoints",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/space"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAllPoints",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/space"
+			},
+			"response": []
+		},
+		{
+			"name": "detectLines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/lines/3"
+			},
+			"response": []
+		}
+	]
+}
