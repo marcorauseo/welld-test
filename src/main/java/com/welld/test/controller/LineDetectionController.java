@@ -74,7 +74,7 @@ public class LineDetectionController {
         }
 
         List<List<Point>> lines = lineDetectionCommand.detectLines(allPoints, n);
-        if(lines.size()==0){
+        if(lines.isEmpty()){
             String errorMessage = "Non è stata trovata nessuna retta, prova ad aggiungere altri punti o a diminuire il valore di n";
             CustomResponse errorResponse = new CustomResponse(errorMessage);
             return ResponseEntity.badRequest().body(errorResponse);
