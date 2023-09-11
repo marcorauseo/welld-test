@@ -54,6 +54,15 @@
 				"url": "http://localhost:8080/lines/3"
 			},
 			"response": []
+		},
+		{
+			"name": "drawLines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/draw"
+			},
+			"response": []
 		}
 	]
 }

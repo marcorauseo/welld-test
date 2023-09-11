@@ -12,15 +12,19 @@ import java.util.List;
 
 @Component
 @Getter
-public class AddPointCommand extends BaseCommand {
+public class AddPointCommand {
 
 
-    private final List<Point> allPoints;
+    private  List<Point> allPoints;
     private final AddPointService addPointService;
 
     public AddPointCommand(List<Point> allPoints, AddPointService pointService) {
         this.allPoints = allPoints;
         this.addPointService = pointService;
+    }
+
+    public void setAllPoints(List<Point> allPoints) {
+        this.allPoints = allPoints;
     }
 
     public ResponseEntity<?> addPoint(Point point) {

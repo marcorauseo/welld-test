@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DetectLinesCommand extends BaseCommand {
+public class DetectLinesCommand {
 
     private final DetectLinesService detectLinesService;
 
