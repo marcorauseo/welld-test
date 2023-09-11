@@ -44,8 +44,8 @@ public class DetectLinesService {
                     // Dove x e y sono le cordinate di un punto sulla retta
                     // m è lo "slope" o inclinazione della retta ---> m= (y2-y1) / (x2-x1)
                     // b è l'"intercept" ovvero dove la retta interseca l'asse y --> b = y1-m*1
-                    double slope = (point2.getY() - point1.getY()) / (point2.getX() - point1.getX());
-                    double intercept = point1.getY() - slope * point1.getX();
+                    double slope = calculateSlope(point1, point2);
+                    double intercept = calculateIntercept(point1, slope);
                     logger.info("m = {}", slope);
                     logger.info("b = {}", intercept);
 
@@ -84,6 +84,19 @@ public class DetectLinesService {
 
             return lines;
         }
+
+    private double calculateSlope(Point point1, Point point2) {
+        return (point2.getY() - point1.getY()) / (point2.getX() - point1.getX());
+    }
+
+    private double calculateIntercept(Point point, double slope) {
+        return point.getY() - slope * point.getX();
+    }
+
+    private boolean isPointOnLine(Point point, double slope, double intercept) {
+        // Verifica se il valore assoluto di y - mx + q è vicino a 0
+        return Math.abs(point.getY() - (slope * point.getX() + intercept)) < 0.001;
+    }
 }
 
 

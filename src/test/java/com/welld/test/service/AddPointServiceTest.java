@@ -11,26 +11,26 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class AddPointServiceTest {
+ class AddPointServiceTest {
 
     private AddPointService addPointService;
     private List<Point> allPoints;
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         addPointService = new AddPointService();
         allPoints = new ArrayList<>();
     }
 
     @Test
-    public void testPointExists_WhenPointDoesNotExist() {
+     void testPointExists_WhenPointDoesNotExist() {
         Point newPoint = new Point(2, 2);
         boolean exists = addPointService.pointExists(allPoints, newPoint);
         assertFalse(exists, " punto non esiste");
     }
 
     @Test
-    public void testPointExists_WhenPointExists() {
+     void testPointExists_WhenPointExists() {
         Point existingPoint = new Point(2, 2);
         allPoints.add(existingPoint);
 
@@ -40,7 +40,7 @@ public class AddPointServiceTest {
     }
 
     @Test
-    public void testPointExists_WhenDifferentPointExists() {
+     void testPointExists_WhenDifferentPointExists() {
         Point existingPoint = new Point(2, 2);
         allPoints.add(existingPoint);
 

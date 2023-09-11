@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class DetectLinesCommandTest {
+ class DetectLinesCommandTest {
 
     @InjectMocks
     private DetectLinesCommand detectLinesCommand;
@@ -24,12 +24,12 @@ public class DetectLinesCommandTest {
     private DetectLinesService detectLinesService;
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testDetectLines() {
+     void testDetectLines() {
         List<Point> inputPoints = new ArrayList<>();
         List<List<Point>> expectedLines = new ArrayList<>();
         // Popola inputPoints e expectedLines con dati di test

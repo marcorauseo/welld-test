@@ -30,7 +30,7 @@ class AddPointCommandTest {
         private List<Point> allPoints;
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         MockitoAnnotations.openMocks(this);
         allPoints = new ArrayList<>();
         addPointCommand.setAllPoints(allPoints); // Inizializza la lista nel comando
@@ -41,7 +41,7 @@ class AddPointCommandTest {
 
 
     @Test
-        public void testAddPoint_Success() {
+         void testAddPoint_Success() {
             Point point = new Point(1, 2);
             allPoints.add(point);
 
@@ -56,7 +56,7 @@ class AddPointCommandTest {
         }
 
         @Test
-        public void testAddPoint_AlreadyExists() {
+         void testAddPoint_AlreadyExists() {
             Point point = new Point(1, 2);
 
             when(addPointService.pointExists(allPoints, point)).thenReturn(true);

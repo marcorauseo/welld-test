@@ -32,12 +32,12 @@ public class LineDetectionControllerTest {
     private DetectLinesCommand detectLinesCommand;
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testAddPoint_Success() throws Exception {
+     void testAddPoint_Success() throws Exception {
         // Crea una richiesta POST con un punto nel corpo
         String requestBody = "{\"x\": 1, \"y\": 2}";
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
@@ -47,7 +47,7 @@ public class LineDetectionControllerTest {
     }
 
     @Test
-    public void testAddPoint_AlreadyExists() throws Exception {
+     void testAddPoint_AlreadyExists() throws Exception {
         // Aggiungi un punto alla lista (simula un punto già presente)
         // Assicurati che il punto aggiunto corrisponda a quello nella richiesta
         // Invia una richiesta POST con lo stesso punto nel corpo
@@ -59,7 +59,7 @@ public class LineDetectionControllerTest {
     }
 
     @Test
-    public void testGetPoints_WithPoints() throws Exception {
+     void testGetPoints_WithPoints() throws Exception {
         //aggiungo un punto
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -74,7 +74,7 @@ public class LineDetectionControllerTest {
 
 
     @Test
-    public void testGetPoints_NoPoints() throws Exception {
+     void testGetPoints_NoPoints() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/space")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -82,7 +82,7 @@ public class LineDetectionControllerTest {
     }
 
     @Test
-    public void testDeleteAllPoints() throws Exception{
+     void testDeleteAllPoints() throws Exception{
         //aggiungo un punto
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class LineDetectionControllerTest {
 
 
     @Test
-    public void testDetectLines_WithValidNAndNoLines() throws Exception {
+     void testDetectLines_WithValidNAndNoLines() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/lines/2")
                         .contentType(MediaType.APPLICATION_JSON)
 
@@ -107,7 +107,7 @@ public class LineDetectionControllerTest {
     }
 
     @Test
-    public void testDetectLines_WithInValidN() throws Exception {
+     void testDetectLines_WithInValidN() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/lines/0")
                         .contentType(MediaType.APPLICATION_JSON)
 
@@ -116,7 +116,7 @@ public class LineDetectionControllerTest {
     }
 
     @Test
-    public void testDetectLines_WithValidNAndLines() throws Exception {
+     void testDetectLines_WithValidNAndLines() throws Exception {
         //aggiungo un punto
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -137,7 +137,7 @@ public class LineDetectionControllerTest {
     }
 
     @Test
-    public void testDetectLines_WithValidNAndOnlyOnePoint() throws Exception {
+     void testDetectLines_WithValidNAndOnlyOnePoint() throws Exception {
         //aggiungo un punto
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)

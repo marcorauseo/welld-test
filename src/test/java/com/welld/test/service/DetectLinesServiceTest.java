@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     private List<Point> testPoints;
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         // Inizializza una lista di punti di prova per il test
         testPoints = new ArrayList<>();
         testPoints.add(new Point(1.0, 2.0));
@@ -44,8 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
         // Verifica le coordinate delle linee rilevate (in caso di un set di punti che genera più linee)
 
-        for (int i = 0; i < lines.size(); i++) {
-            List<Point> firstLine = lines.get(i);
+        for (List<Point> firstLine : lines) {
             assertTrue(firstLine.size() > N);
         }
 
