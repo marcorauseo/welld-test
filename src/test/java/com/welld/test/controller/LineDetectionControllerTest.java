@@ -1,6 +1,7 @@
 package com.welld.test.controller;
 
 import com.welld.test.command.AddPointCommand;
+import com.welld.test.command.DetectLinesCommand;
 import com.welld.test.model.Point;
 import com.welld.test.util.CustomResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,8 +37,9 @@ public class LineDetectionControllerTest {
     @InjectMocks
     private LineDetectionController controller;
 
+
     @Mock
-    private AddPointCommand addPointCommand;
+    private DetectLinesCommand detectLinesCommand;
 
     @BeforeEach
     public void setUp() {
@@ -106,6 +108,29 @@ public class LineDetectionControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
+    }
+
+
+    @Test
+    public void testDetectLines_WithValidN() {
+        int n = 2; // Valore valido per n
+
+        // Simula il comportamento della detectLinesCommand quando n è valido
+        List<List<Point>> mockLines = new ArrayList<>();
+        when(detectLinesCommand.detectLines(anyList(), eq(n))).thenReturn(mockLines);
+
+
+        // Esegui la chiamata al metodo
+        ResponseEntity<?> response = controller.detectLines(n);
+
+        // Verifica che il metodo detectLinesCommand.detectLines sia stato chiamato
+        verify(detectLinesCommand, times(1)).detectLines(anyList(), eq(n));
+
+        // Verifica che la risposta abbia lo stato OK
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        // Verifica che la risposta contenga le linee mockLines
+        assertEquals(mockLines, response.getBody());
     }
 
 
