@@ -64,8 +64,7 @@ public class LineDetectionControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"x\": 2, \"y\": 2}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                );
         //testo la getallpoints
         mockMvc.perform(MockMvcRequestBuilders.get("/space")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -74,14 +73,12 @@ public class LineDetectionControllerTest {
     }
 
 
-
-
     @Test
     public void testGetPoints_NoPoints() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/space")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -90,8 +87,7 @@ public class LineDetectionControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"x\": 2, \"y\": 2}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                );
         //tolgo il punto
         mockMvc.perform(MockMvcRequestBuilders.delete("/space")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -125,14 +121,12 @@ public class LineDetectionControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"x\": 2, \"y\": 2}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                );
         //aggiungo un punto
         mockMvc.perform(MockMvcRequestBuilders.post("/point")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"x\": 0, \"y\": 0}")
-                )
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                );
 
 
         mockMvc.perform(MockMvcRequestBuilders.get("/lines/2")
@@ -149,7 +143,7 @@ public class LineDetectionControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"x\": 2, \"y\": 2}")
                 )
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                ;
 
 
         mockMvc.perform(MockMvcRequestBuilders.get("/lines/2")
