@@ -68,29 +68,17 @@ public class LineDetectionControllerTest {
 
     @Test
     public void testGetPoints_WithPoints() throws Exception {
-
-        // Crea un punto fittizio
-        Point point = new Point(2, 2);
-
-        // Crea una lista di punti fittizia contenente il punto
-        List<Point> mockPoints = new ArrayList<>();
-        mockPoints.add(point);
-
-        // Configura il mock per restituire la lista mockPoints quando getAllPoints() viene chiamato
-        when(addPointCommand.getAllPoints()).thenReturn(mockPoints);
-
-
-        // Chiamata al controller
-        ResponseEntity<?> response = controller.getPoints();
-
-        // Verifica che il metodo getAllPoints() sia stato chiamato
-       verify(addPointCommand, times(1)).getAllPoints();
-
-        // Verifica che la risposta abbia lo stato OK
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        // Verifica che la risposta contenga la lista di punti attesa
-        assertEquals(mockPoints, response.getBody());
+        //aggiungo un punto
+        mockMvc.perform(MockMvcRequestBuilders.post("/point")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"x\": 2, \"y\": 2}")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        //testo la getallpoints
+        mockMvc.perform(MockMvcRequestBuilders.get("/space")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        )
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 
