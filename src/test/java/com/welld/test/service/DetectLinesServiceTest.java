@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
- class LineDetectionServiceTest {
+ class DetectLinesServiceTest {
 
     @Autowired
-    private LineDetectionService lineDetectionService;
+    private DetectLinesService detectLinesService;
 
     private List<Point> testPoints;
 
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         int N = 3;
 
         // Esegui la rilevazione delle linee sui punti di prova
-        List<List<Point>> lines = lineDetectionService.detectLines(testPoints, N);
+        List<List<Point>> lines = detectLinesService.detectLines(testPoints, N);
 
         // Verifica i risultati del test (mi aspetto che per 3 punti di questo set passi una sola retta)
         assertEquals(1, lines.size()); // Verifica il numero di linee rilevate

@@ -23,9 +23,9 @@ restituire tutti i punti coinvolti.
 * */
 
 @Service
-public class LineDetectionService {
+public class DetectLinesService {
 
-    private static final Logger logger = LoggerFactory.getLogger(LineDetectionService.class);
+    private static final Logger logger = LoggerFactory.getLogger(DetectLinesService.class);
 
         public List<List<Point>> detectLines(List<Point> points, int n) {
             List<List<Point>> lines = new ArrayList<>();
