@@ -91,4 +91,25 @@ public class LineDetectionControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
+
+    @Test
+    public void testDeleteAllPoints() throws Exception{
+        //aggiungo un punto
+        mockMvc.perform(MockMvcRequestBuilders.post("/point")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"x\": 2, \"y\": 2}")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        //tolgo il punto
+        mockMvc.perform(MockMvcRequestBuilders.delete("/space")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+    }
+
+
+
+
+
 }

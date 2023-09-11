@@ -4,7 +4,6 @@ import com.welld.test.command.AddPointCommand;
 import com.welld.test.command.DetectLinesCommand;
 import com.welld.test.model.Point;
 import com.welld.test.service.DetectLinesService;
-import com.welld.test.service.DrawLinesService;
 import com.welld.test.util.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +37,6 @@ public class LineDetectionController extends JPanel {
     @Autowired
     private DetectLinesService detectLinesService;
 
-    @Autowired
-    private DrawLinesService drawLinesService;
 
     private final List<Point> allPoints = new ArrayList<>();
 
