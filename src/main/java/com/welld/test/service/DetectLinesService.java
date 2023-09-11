@@ -5,7 +5,6 @@ import com.welld.test.model.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -50,22 +49,10 @@ public class DetectLinesService {
                     logger.info("b = {}", intercept);
 
                     logger.info(" Verifico quanti altri punti giacciono sulla retta");
-                    List<Point> linePoints = new ArrayList<>();
-                    linePoints.add(point1);
-                    linePoints.add(point2);
+
                     logger.info("Point1 ({}, {})", point1.getX(), point1.getY());
+                    List<Point> linePoints = findPointsOnLine(points, point1, point2, slope, intercept);
 
-                    for (Point point : points) {
-                        if (point != point1 && point != point2) {
-                    logger.info("y - mx + q for point ({}, {}) = {}", point.getX(), point.getY(), intercept);
-
-                            //Se il valore assouluto di y-mx+q è circa uguale a 0 il punto appartiene alla stessa retta del punto iniziale
-                            if (Math.abs(point.getY() - (slope * point.getX() + intercept)) < 0.001) {
-                                linePoints.add(point);
-                                logger.info("Point ({}, {}) added to the line.", point.getX(), point.getY());
-                            }
-                        }
-                    }
 
                     // Se la retta contiene n o più punti la aggiungo al risultato
                     if (linePoints.size() >= n) {
@@ -96,6 +83,20 @@ public class DetectLinesService {
     private boolean isPointOnLine(Point point, double slope, double intercept) {
         // Verifica se il valore assoluto di y - mx + q è vicino a 0
         return Math.abs(point.getY() - (slope * point.getX() + intercept)) < 0.001;
+    }
+
+    private List<Point> findPointsOnLine(List<Point> points, Point point1, Point point2, double slope, double intercept) {
+        List<Point> linePoints = new ArrayList<>();
+        linePoints.add(point1);
+        linePoints.add(point2);
+
+        for (Point point : points) {
+            if (!point.equals(point1) && !point.equals(point2) && isPointOnLine(point, slope, intercept)) {
+                linePoints.add(point);
+            }
+        }
+
+        return linePoints;
     }
 }
 
