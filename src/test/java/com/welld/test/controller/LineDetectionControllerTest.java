@@ -1,9 +1,7 @@
 package com.welld.test.controller;
 
-import com.welld.test.command.AddPointCommand;
+;
 import com.welld.test.command.DetectLinesCommand;
-import com.welld.test.model.Point;
-import com.welld.test.util.CustomResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,20 +10,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -112,26 +102,64 @@ public class LineDetectionControllerTest {
 
 
     @Test
-    public void testDetectLines_WithValidN() {
-        int n = 2; // Valore valido per n
+    public void testDetectLines_WithValidNAndNoLines() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/lines/2")
+                        .contentType(MediaType.APPLICATION_JSON)
 
-        // Simula il comportamento della detectLinesCommand quando n è valido
-        List<List<Point>> mockLines = new ArrayList<>();
-        when(detectLinesCommand.detectLines(anyList(), eq(n))).thenReturn(mockLines);
-
-
-        // Esegui la chiamata al metodo
-        ResponseEntity<?> response = controller.detectLines(n);
-
-        // Verifica che il metodo detectLinesCommand.detectLines sia stato chiamato
-        verify(detectLinesCommand, times(1)).detectLines(anyList(), eq(n));
-
-        // Verifica che la risposta abbia lo stato OK
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        // Verifica che la risposta contenga le linee mockLines
-        assertEquals(mockLines, response.getBody());
+                )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
+
+    @Test
+    public void testDetectLines_WithInValidN() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/lines/0")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+                )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void testDetectLines_WithValidNAndLines() throws Exception {
+        //aggiungo un punto
+        mockMvc.perform(MockMvcRequestBuilders.post("/point")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"x\": 2, \"y\": 2}")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        //aggiungo un punto
+        mockMvc.perform(MockMvcRequestBuilders.post("/point")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"x\": 0, \"y\": 0}")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/lines/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testDetectLines_WithValidNAndOnlyOnePoint() throws Exception {
+        //aggiungo un punto
+        mockMvc.perform(MockMvcRequestBuilders.post("/point")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"x\": 2, \"y\": 2}")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/lines/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+                )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+
 
 
 

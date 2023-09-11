@@ -3,7 +3,6 @@ package com.welld.test.controller;
 import com.welld.test.command.AddPointCommand;
 import com.welld.test.command.DetectLinesCommand;
 import com.welld.test.model.Point;
-import com.welld.test.service.DetectLinesService;
 import com.welld.test.util.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,11 +32,7 @@ import java.util.List;
 public class LineDetectionController extends JPanel {
 
 
-    @Autowired
-    private DetectLinesService detectLinesService;
 
-
-    private final List<Point> allPoints = new ArrayList<>();
 
     private final DetectLinesCommand detectLinesCommand;
     private final AddPointCommand addPointCommand ;
